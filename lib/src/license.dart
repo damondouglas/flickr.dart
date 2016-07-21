@@ -17,7 +17,7 @@ class License {
   }
 }
 
-Future<List<License>> getAll(String apiKey) => new Future(() async {
+Future<List<License>> getAllLicenses(String apiKey) => new Future(() async {
   var client = new base.Client(apiKey);
   var data = await client.get(_METHOD, _PARAMS);
   return data['licenses']['license']

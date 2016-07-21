@@ -1,5 +1,3 @@
-@Skip('')
-
 import 'dart:async';
 import 'common.dart';
 import 'package:flickr/src/echo.dart' as echo;
@@ -15,7 +13,7 @@ void main() {
     });
 
     test('echo should work', () async {
-      echo.Echo obj = await echo.get(apiKey);
+      echo.Echo obj = await echo.getEcho(apiKey);
       expect(obj.apiKey, apiKey);
     });
   });

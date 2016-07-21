@@ -10,7 +10,7 @@ class Echo {
   String apiKey;
 }
 
-Future<Echo> get(String apiKey) => new Future(() async {
+Future<Echo> getEcho(String apiKey) => new Future(() async {
   var client = new base.Client(apiKey);
   var data = await client.get(_METHOD, _PARAMS);
   var obj = new Echo();

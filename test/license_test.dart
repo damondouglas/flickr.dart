@@ -15,7 +15,7 @@ void main() {
     });
 
     test('licenses should work', () async {
-      var licenseList = await license.getAll(apiKey);
+      var licenseList = await license.getAllLicenses(apiKey);
       licenseList.forEach((l1) {
         var id = l1.id;
         var l2 = _compareAgainst.firstWhere((l) => l['id'] == id);

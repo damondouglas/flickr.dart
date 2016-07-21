@@ -1,5 +1,3 @@
-@Skip("Ok for now...")
-
 import 'dart:async';
 import 'common.dart';
 import 'package:flickr/src/base.dart' as flickr;
