@@ -5,15 +5,29 @@ import 'base.dart' as base;
 
 final _METHOD = "flickr.photos.licenses.getInfo";
 final _PARAMS = {};
+final _ID = 'id';
+final _NAME = 'name';
+final _URL = 'url';
+final COMMERCIAL_ALLOWED_LICENSE_IDS = [
+  4,
+  7
+];
 
 class License {
   int id;
   String name;
   String url;
   License.from(Map data) {
-    id = int.parse(data['id'], onError: (input) => -1);
-    name = data['name'];
-    url = data['url'];
+    id = int.parse(data[_ID], onError: (input) => -1);
+    name = data[_NAME];
+    url = data[_URL];
+  }
+  Map toJson() {
+    return {
+      _ID : id,
+      _NAME : name,
+      _URL : url
+    };
   }
 }
 
