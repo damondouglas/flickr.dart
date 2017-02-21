@@ -5,7 +5,6 @@ import 'package:flickr/src/license.dart' as license;
 import 'package:test/test.dart';
 
 void main() {
-
   String apiKey;
   List _compareAgainst = JSON.decode(_licenseData);
 
@@ -26,8 +25,6 @@ void main() {
     });
   });
 }
-
-
 
 final _licenseData = """
 [

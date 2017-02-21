@@ -18,8 +18,8 @@ class License {
 }
 
 Future<List<License>> getAllLicenses(String apiKey) => new Future(() async {
-  var client = new base.Client(apiKey);
-  var data = await client.get(_METHOD, _PARAMS);
-  return data['licenses']['license']
-  .map((licenseData) => new License.from(licenseData));
-});
+      var client = new base.Client(apiKey);
+      var data = await client.get(_METHOD, _PARAMS);
+      return data['licenses']['license']
+          .map((licenseData) => new License.from(licenseData));
+    });

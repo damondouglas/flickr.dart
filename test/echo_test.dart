@@ -4,15 +4,14 @@ import 'package:flickr/src/echo.dart' as echo;
 import 'package:test/test.dart';
 
 void main() {
-
   String apiKey;
 
-  group('A group of tests', () {
+  group('', () {
     setUp(() {
       apiKey = getApiKey();
     });
 
-    test('echo should work', () async {
+    test('echo should echo', () async {
       echo.Echo obj = await echo.getEcho(apiKey);
       expect(obj.apiKey, apiKey);
     });

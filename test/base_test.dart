@@ -4,7 +4,6 @@ import 'package:flickr/src/base.dart' as flickr;
 import 'package:test/test.dart';
 
 void main() {
-
   flickr.Client client;
   String apiKey;
 
