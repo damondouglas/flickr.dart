@@ -8,7 +8,7 @@ final _PARAMS = {};
 final _ID = 'id';
 final _NAME = 'name';
 final _URL = 'url';
-final COMMERCIAL_ALLOWED_LICENSE_IDS = [
+const COMMERCIAL_ALLOWED_LICENSE_IDS = const [
   4,
   7
 ];
