@@ -22,15 +22,19 @@ final TITLE = "Sampson";
 
 void main() {
   String apiKey;
+  Map result;
 
   group('search', () {
     base.Client client;
+
     setUpAll(() async {
       apiKey = getApiKey();
+      client = new base.Client(apiKey);
+      var params = {USER_ID_KEY: USER_ID};
+      result = await client.get('flickr.photos.search', params);
     });
 
     group('data', () {
-      Map result;
       String rootPath = search.PHOTOS;
       Map photosResult;
       Map root;
@@ -40,16 +44,12 @@ void main() {
       int total;
 
       setUpAll(() async {
-        client = new base.Client(apiKey);
-        var params = {USER_ID_KEY: USER_ID};
-        result = await client.get('flickr.photos.search', params);
         root = result[search.PHOTOS];
         photosResult = root;
         page = root[search.PAGE];
         pages = root[search.PAGES];
         perpage = root[search.PERPAGE];
         total = int.parse(root[search.TOTAL], onError: (_) => 0);
-
       });
 
       test(search.PHOTOS, (){
@@ -124,16 +124,70 @@ void main() {
         test(search.TITLE, (){
           expect(title, TITLE);
         });
+      });
+    });
 
+    group('parsing', () {
+      search.SearchResult searchResult;
+      setUpAll(() {
+        searchResult = new search.SearchResult.fromJson(result);
       });
 
+      group('SearchResult', () {
+        test(search.PAGE, (){
+          expect(searchResult.page, PAGE);
+        });
+
+        test(search.NUM_PAGES, (){
+          expect(searchResult.numPages, PAGES);
+        });
+
+        test(search.PERPAGE, (){
+          expect(searchResult.numPerPage, PERPAGE);
+        });
+
+        test(search.TOTAL, (){
+          expect(searchResult.total, TOTAL);
+        });
+
+        group('SearchResultEntry', () {
+          List<search.SearchResultEntry> searchResultEntries;
+          search.SearchResultEntry entry;
+          setUpAll(() {
+            searchResultEntries = searchResult.entries;
+            entry = searchResultEntries.first;
+          });
+
+          test('is not empty', (){
+            expect(searchResultEntries, isNotEmpty);
+            expect(entry, isNotNull);
+          });
+
+          test(search.ID, (){
+            expect(entry.id, ID);
+          });
+
+          test(search.OWNER, (){
+            expect(entry.owner, OWNER);
+          });
+
+          test(search.SECRET, (){
+            expect(entry.secret, SECRET);
+          });
+
+          test(search.SERVER, (){
+            expect(entry.server, SERVER);
+          });
+
+          test(search.FARM, (){
+            expect(entry.farm, FARM);
+          });
+
+          test(search.TITLE, (){
+            expect(entry.title, TITLE);
+          });
+        });
+      });
     });
   });
 }
-
-/*
- *
- * {photos: {page: 1, pages: 1, perpage: 100, total: 1,
- * photo: [{id: 27940317290, owner: 142142221@N02, secret: 9842ee4acd, server: 8688,
- * farm: 9, title: Sampson, ispublic: 1, isfriend: 0, isfamily: 0}]}, stat: ok}
- */

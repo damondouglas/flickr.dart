@@ -51,10 +51,9 @@ class SearchResult {
   SearchResult.fromJson(Map json) {
     json = json[PHOTOS];
     page = json[PAGE];
-    // numPages = int.parse(json[PAGES]);
     numPages = json[PAGES];
     numPerPage = json[PERPAGE];
-    total = int.parse(json[TOTAL]);
+    total = int.parse(json[TOTAL], onError: (_) => 0);
     List<Map> rawPhotoResults = json[PHOTO];
     entries = rawPhotoResults
         .map((Map photoResultData) =>
