@@ -20,6 +20,8 @@ final SERVER = "8688";
 final FARM = 9;
 final TITLE = "Sampson";
 
+final SEARCH_TERM = 'cats';
+
 void main() {
   String apiKey;
   Map result;
@@ -185,6 +187,73 @@ void main() {
 
           test(search.TITLE, (){
             expect(entry.title, TITLE);
+          });
+        });
+      });
+    });
+
+    group('method', () {
+      Map resultFromMethod;
+      search.SearchResult searchResult;
+      setUpAll(() async {
+        resultFromMethod = await search.search(apiKey, SEARCH_TERM);
+        searchResult = new search.SearchResult.fromJson(resultFromMethod);
+      });
+
+      group('parsing', () {
+        group('SearchResult', () {
+          test(search.PAGE, (){
+            expect(searchResult.page, 1);
+          });
+
+          test(search.PAGES, () {
+            expect(searchResult.numPages, isNonZero);
+          });
+
+          test(search.PERPAGE, () {
+            expect(searchResult.numPerPage, isNonZero);
+          });
+
+          test(search.TOTAL, () {
+            expect(searchResult.total, isNonZero);
+          });
+
+          group('SearchResultEntry', () {
+            List<search.SearchResultEntry> searchResultList;
+            search.SearchResultEntry entry;
+            setUpAll(() {
+              searchResultList = searchResult.entries;
+              entry = searchResultList.first;
+            });
+
+            test('is not empty', (){
+              expect(searchResultList, isNotEmpty);
+              expect(entry, isNotNull);
+            });
+
+            test(search.ID, (){
+              expect(entry.id.length, isNonZero);
+            });
+
+            test(search.OWNER, (){
+              expect(entry.owner.length, isNonZero);
+            });
+
+            test(search.SECRET, (){
+              expect(entry.secret.length, isNonZero);
+            });
+
+            test(search.SERVER, (){
+              expect(entry.server.length, isNonZero);
+            });
+
+            test(search.FARM, (){
+              expect(entry.farm, isNonZero);
+            });
+
+            test(search.TITLE, (){
+              expect(entry.title.length, isNonZero);
+            });
           });
         });
       });

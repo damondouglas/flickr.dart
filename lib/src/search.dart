@@ -112,12 +112,10 @@ class SearchResultEntry {
   }
 }
 
-Future<SearchResult> search(String apiKey, String query,
+Future<Map> search(String apiKey, String query,
     {List<int> licenses: license.COMMERCIAL_ALLOWED_LICENSE_IDS,
     String media: PHOTOS_ONLY}) async {
   var client = new base.Client(apiKey);
   var params = {_QUERY_TEXT_KEY: query};
-  var dataResult = await client.get(_METHOD, params);
-  return new SearchResult.fromJson(dataResult);
-  // return null;
+  return client.get(_METHOD, params);
 }
