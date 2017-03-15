@@ -8,12 +8,12 @@ void main() {
   String apiKey;
   List _compareAgainst = JSON.decode(_licenseData);
 
-  group('A group of tests', () {
+  group('license', () {
     setUp(() {
       apiKey = getApiKey();
     });
 
-    test('licenses should work', () async {
+    test('getAllLicenses', () async {
       var licenseList = await license.getAllLicenses(apiKey);
       licenseList.forEach((l1) {
         var id = l1.id;

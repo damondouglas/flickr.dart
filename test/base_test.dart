@@ -13,12 +13,9 @@ void main() {
       client = new flickr.Client(apiKey);
     });
 
-    test('uri builds with expected params', (){
-      var uri = client.buildUriFromParams({
-        "method":"flickr.photos.search",
-        "text":"cats",
-        "license":"4,7"
-      });
+    test('uri builds with expected params', () {
+      var uri = client.buildUriFromParams(
+          {"method": "flickr.photos.search", "text": "cats", "license": "4,7"});
       expect(uri.queryParameters["license"], "4,7");
       expect(uri.queryParameters["method"], "flickr.photos.search");
       expect(uri.queryParameters["text"], "cats");

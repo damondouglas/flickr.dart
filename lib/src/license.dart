@@ -8,10 +8,7 @@ final _PARAMS = {};
 final _ID = 'id';
 final _NAME = 'name';
 final _URL = 'url';
-const COMMERCIAL_ALLOWED_LICENSE_IDS = const [
-  4,
-  7
-];
+const COMMERCIAL_ALLOWED_LICENSE_IDS = const [4, 7];
 
 class License {
   int id;
@@ -23,11 +20,7 @@ class License {
     url = data[_URL];
   }
   Map toJson() {
-    return {
-      _ID : id,
-      _NAME : name,
-      _URL : url
-    };
+    return {_ID: id, _NAME: name, _URL: url};
   }
 }
 
