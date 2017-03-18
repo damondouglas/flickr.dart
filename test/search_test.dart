@@ -192,7 +192,7 @@ void main() {
       });
     });
 
-    group('method', () {
+    group('method default page', () {
       Map resultFromMethod;
       search.SearchResult searchResult;
       setUpAll(() async {
@@ -256,6 +256,17 @@ void main() {
             });
           });
         });
+      });
+    });
+
+    group('method page 2', () {
+      search.SearchResult searchResult;
+      setUpAll(() async {
+        var result = await search.search(apiKey, SEARCH_TERM, page: 2);
+        searchResult = new search.SearchResult.fromJson(result);
+      });
+      test('page is 2', (){
+        expect(searchResult.page, 2);
       });
     });
   });

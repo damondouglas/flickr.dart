@@ -8,6 +8,7 @@ final _METHOD = 'flickr.photos.search';
 final _QUERY_TEXT_KEY = 'text';
 final _MEDIA_KEY = 'media';
 final _LICENSE_KEY = 'license';
+final _PAGE_KEY = 'page';
 
 final SMALL_SQUARE = 's';
 final LARGE_SQUARE = 'q';
@@ -113,9 +114,10 @@ class SearchResultEntry {
 }
 
 Future<Map> search(String apiKey, String query,
-    {List<int> licenses: license.COMMERCIAL_ALLOWED_LICENSE_IDS,
+    {int page: 1, List<int> licenses: license.COMMERCIAL_ALLOWED_LICENSE_IDS,
     String media: PHOTOS_ONLY}) async {
   var client = new base.Client(apiKey);
   var params = {_QUERY_TEXT_KEY: query};
+  if (page > 1) params[_PAGE_KEY] = page.toString();
   return client.get(_METHOD, params);
 }
