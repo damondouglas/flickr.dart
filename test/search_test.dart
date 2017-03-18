@@ -142,7 +142,7 @@ void main() {
           expect(searchResult.page, PAGE);
         });
 
-        test(search.NUM_PAGES, (){
+        test(search.PAGES, (){
           expect(searchResult.numPages, PAGES);
         });
 
@@ -189,6 +189,72 @@ void main() {
 
           test(search.TITLE, (){
             expect(entry.title, TITLE);
+          });
+        });
+      });
+
+      group('toJson yeilds parseable', () {
+        Map searchResultJson;
+        search.SearchResult searchResultFromJson;
+        setUpAll(() {
+          searchResultJson = searchResult.toJson();
+        });
+
+        group('SearchResult object', (){
+          int page;
+          int pages;
+          int perpage;
+          int total;
+
+          setUpAll(() {
+            searchResultFromJson = new search.SearchResult.fromJson(searchResultJson);
+            page = searchResultFromJson.page;
+            pages = searchResultFromJson.numPages;
+            perpage = searchResultFromJson.numPerPage;
+            total = searchResultFromJson.total;
+          });
+
+          test(search.PAGE, (){
+            expect(page, PAGE);
+          });
+
+          test(search.PAGES, (){
+            expect(1, PAGES);
+          });
+
+          test(search.PERPAGE, (){
+            expect(perpage, PERPAGE);
+          });
+
+          test(search.TOTAL, (){
+            expect(total, TOTAL);
+          });
+        });
+
+        group('SearchResultEntry object', () {
+          String id;
+          String owner;
+          String secret;
+          String server;
+          int farm;
+          String title;
+          setUpAll(() {
+            var entry = searchResultFromJson.entries.first;
+            id = entry.id;
+            owner = entry.owner;
+            secret = entry.secret;
+            server = entry.server;
+            farm = entry.farm;
+            title = entry.title;
+          });
+
+          test('', (){
+            expect(id, ID);
+            expect(owner, OWNER);
+            expect(secret, SECRET);
+            expect(server, SERVER);
+            expect(farm, FARM);
+            expect(title, TITLE);
           });
         });
       });

@@ -27,7 +27,6 @@ final PHOTOS = 'photos';
 final PHOTO = 'photo';
 final PAGE = 'page';
 final PAGES = 'pages';
-final NUM_PAGES = 'num_pages';
 final PERPAGE = 'perpage';
 final TOTAL = 'total';
 final ID = 'id';
@@ -62,17 +61,17 @@ class SearchResult {
         .toList(growable: false);
   }
 
-  Map toJson() {
-    return {
+  Map toJson() => {
+    PHOTOS: {
       PAGE: page,
-      NUM_PAGES: numPages,
+      PAGES: numPages,
       PERPAGE: numPerPage,
-      TOTAL: total,
-      ENTRIES: entries
-          .map((SearchResultEntry entry) => entry.toJson())
-          .toList(growable: false)
-    };
-  }
+      TOTAL: total.toString(),
+      PHOTO: entries
+        .map((SearchResultEntry entry) => entry.toJson())
+        .toList(growable: false)
+    }
+  };
 }
 
 class SearchResultEntry {
