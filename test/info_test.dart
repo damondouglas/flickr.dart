@@ -28,48 +28,48 @@ main() {
       result = originalResult[info.PHOTO_KEY];
     });
 
-    group('parses', (){
+    group('parses', () {
       group('Map', () {
-        test(info.ID_KEY, (){
+        test(info.ID_KEY, () {
           expect(result[info.ID_KEY], PHOTO_ID);
         });
 
-        test(info.SECRET_KEY, (){
+        test(info.SECRET_KEY, () {
           expect(result[info.SECRET_KEY], SECRET);
         });
 
-        test(info.SERVER_KEY, (){
+        test(info.SERVER_KEY, () {
           expect(result[info.SERVER_KEY], SERVER);
         });
 
-        test(info.FARM_KEY, (){
+        test(info.FARM_KEY, () {
           expect(result[info.FARM_KEY], FARM);
         });
 
-        test(info.ORIGINAL_SECRET_KEY, (){
+        test(info.ORIGINAL_SECRET_KEY, () {
           expect(result[info.ORIGINAL_SECRET_KEY], ORIGINAL_SECRET);
         });
 
-        test(info.ORIGINAL_FORMAT_KEY, (){
+        test(info.ORIGINAL_FORMAT_KEY, () {
           expect(result[info.ORIGINAL_FORMAT_KEY], ORIGINAL_FORMAT);
         });
 
-        test(info.LICENSE_ID_KEY, (){
+        test(info.LICENSE_ID_KEY, () {
           expect(result[info.LICENSE_ID_KEY], LICENSE.toString());
         });
 
         group(info.OWNER_KEY, () {
           Map ownerJson;
           setUpAll(() => ownerJson = result[info.OWNER_KEY]);
-          test(info.OWNER_ID_KEY, (){
+          test(info.OWNER_ID_KEY, () {
             expect(ownerJson[info.OWNER_ID_KEY], OWNER_ID);
           });
 
-          test(info.USERNAME_KEY, (){
+          test(info.USERNAME_KEY, () {
             expect(ownerJson[info.USERNAME_KEY], USER_NAME);
           });
 
-          test(info.REALNAME_KEY, (){
+          test(info.REALNAME_KEY, () {
             expect(ownerJson[info.REALNAME_KEY], REAL_NAME);
           });
         });
@@ -85,7 +85,7 @@ main() {
           urlStatusCode = response.statusCode;
         });
 
-        group('toJson() yields parseable', (){
+        group('toJson() yields parseable', () {
           String id;
           String secret;
           String server;
@@ -116,7 +116,7 @@ main() {
             realName = ownerFromToJson.realName;
           });
 
-          test('Info object', (){
+          test('Info object', () {
             expect(id, PHOTO_ID);
             expect(secret, SECRET);
             expect(server, SERVER);
@@ -126,42 +126,42 @@ main() {
             expect(originalFormat, ORIGINAL_FORMAT);
           });
 
-          test('Owner object', (){
+          test('Owner object', () {
             expect(ownerId, OWNER_ID);
             expect(userName, USER_NAME);
             expect(realName, REAL_NAME);
           });
         });
 
-        test(info.ID_KEY, (){
+        test(info.ID_KEY, () {
           expect(infoObj.id, PHOTO_ID);
         });
 
-        test(info.SECRET_KEY, (){
+        test(info.SECRET_KEY, () {
           expect(infoObj.secret, SECRET);
         });
 
-        test(info.SERVER_KEY, (){
+        test(info.SERVER_KEY, () {
           expect(infoObj.server, SERVER);
         });
 
-        test(info.FARM_KEY, (){
+        test(info.FARM_KEY, () {
           expect(infoObj.farm, FARM);
         });
 
-        test(info.LICENSE_ID_KEY, (){
+        test(info.LICENSE_ID_KEY, () {
           expect(infoObj.licenseId, LICENSE);
         });
 
-        test(info.ORIGINAL_SECRET_KEY, (){
+        test(info.ORIGINAL_SECRET_KEY, () {
           expect(infoObj.originalSecret, ORIGINAL_SECRET);
         });
 
-        test(info.ORIGINAL_FORMAT_KEY, (){
+        test(info.ORIGINAL_FORMAT_KEY, () {
           expect(infoObj.originalFormat, ORIGINAL_FORMAT);
         });
 
-        test('original photo url', (){
+        test('original photo url', () {
           expect(urlStatusCode, STATUS_OK);
         });
 
@@ -176,19 +176,19 @@ main() {
             ownerUrlStatusCode = response.statusCode;
           });
 
-          test(info.OWNER_ID_KEY, (){
+          test(info.OWNER_ID_KEY, () {
             expect(owner.id, OWNER_ID);
           });
 
-          test(info.USERNAME_KEY, (){
+          test(info.USERNAME_KEY, () {
             expect(owner.userName, USER_NAME);
           });
 
-          test(info.REALNAME_KEY, (){
+          test(info.REALNAME_KEY, () {
             expect(owner.realName, REAL_NAME);
           });
 
-          test('url', (){
+          test('url', () {
             expect(ownerUrlStatusCode, STATUS_OK);
           });
         });

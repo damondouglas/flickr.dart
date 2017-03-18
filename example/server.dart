@@ -8,8 +8,8 @@ main() async {
   var apiKey = Platform.environment['FLICKR_API_KEY'];
   var f = new flickr.Flickr(apiKey);
   var handler = const shelf.Pipeline()
-    .addMiddleware(shelf.logRequests())
-    .addHandler(f.search);
+      .addMiddleware(shelf.logRequests())
+      .addHandler(f.search);
 
   var server = await io.serve(handler, '0.0.0.0', port);
 

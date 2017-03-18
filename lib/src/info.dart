@@ -45,20 +45,21 @@ class Info {
   }
 
   Map toJson() => {
-    PHOTO_KEY: {
-      ID_KEY: id,
-      SECRET_KEY: secret,
-      SERVER_KEY: server,
-      FARM_KEY: farm,
-      ORIGINAL_SECRET_KEY: originalSecret,
-      ORIGINAL_FORMAT_KEY: originalFormat,
-      LICENSE_ID_KEY: licenseId.toString(),
-      OWNER_KEY: owner.toJson()
-    }
-  };
+        PHOTO_KEY: {
+          ID_KEY: id,
+          SECRET_KEY: secret,
+          SERVER_KEY: server,
+          FARM_KEY: farm,
+          ORIGINAL_SECRET_KEY: originalSecret,
+          ORIGINAL_FORMAT_KEY: originalFormat,
+          LICENSE_ID_KEY: licenseId.toString(),
+          OWNER_KEY: owner.toJson()
+        }
+      };
 
   // https://www.flickr.com/services/api/misc.urls.html
-  Uri get url => new Uri.https('farm$farm.$_PHOTO_URL_BASE', '$server/${id}_${originalSecret}_o.${originalFormat}');
+  Uri get url => new Uri.https('farm$farm.$_PHOTO_URL_BASE',
+      '$server/${id}_${originalSecret}_o.${originalFormat}');
 }
 
 class Owner {
@@ -72,18 +73,13 @@ class Owner {
     realName = json[REALNAME_KEY];
   }
 
-  Map toJson() => {
-    OWNER_ID_KEY: id,
-    USERNAME_KEY: userName,
-    REALNAME_KEY: realName
-  };
+  Map toJson() =>
+      {OWNER_ID_KEY: id, USERNAME_KEY: userName, REALNAME_KEY: realName};
 
   Uri get url => new Uri.https(_OWNER_URL_BASE, 'people/$id');
 }
 
 Future<Map> get(String apiKey, String photoId) {
   var client = new base.Client(apiKey);
-  return client.get(_METHOD, {
-    PHOTO_ID_KEY: photoId
-  });
+  return client.get(_METHOD, {PHOTO_ID_KEY: photoId});
 }

@@ -62,16 +62,16 @@ class SearchResult {
   }
 
   Map toJson() => {
-    PHOTOS: {
-      PAGE: page,
-      PAGES: numPages,
-      PERPAGE: numPerPage,
-      TOTAL: total.toString(),
-      PHOTO: entries
-        .map((SearchResultEntry entry) => entry.toJson())
-        .toList(growable: false)
-    }
-  };
+        PHOTOS: {
+          PAGE: page,
+          PAGES: numPages,
+          PERPAGE: numPerPage,
+          TOTAL: total.toString(),
+          PHOTO: entries
+              .map((SearchResultEntry entry) => entry.toJson())
+              .toList(growable: false)
+        }
+      };
 }
 
 class SearchResultEntry {
@@ -85,19 +85,28 @@ class SearchResultEntry {
   Uri get thumbnailUri => _buildImageUriFromSize(THUMBNAIL);
   Uri get smallSquareUri => _buildImageUriFromSize(SMALL_SQUARE);
   Uri get largeSquareUri => _buildImageUriFromSize(LARGE_SQUARE);
-  Uri get small240OnLongestSide => _buildImageUriFromSize(SMALL_240_ON_LONGEST_SIDE);
-  Uri get small320OnLongestSide => _buildImageUriFromSize(SMALL_320_ON_LONGEST_SIDE);
-  Uri get medium500OnLongestSide => _buildImageUriFromSize(MEDIUM_500_ON_LONGEST_SIDE);
-  Uri get medium640OnLongestSide => _buildImageUriFromSize(MEDIUM_640_ON_LONGEST_SIDE);
-  Uri get medium800OnLongestSide => _buildImageUriFromSize(MEDIUM_800_ON_LONGEST_SIDE);
-  Uri get large1024OnLongestSide => _buildImageUriFromSize(LARGE_1024_ON_LONGEST_SIDE);
-  Uri get large1600OnLongestSide => _buildImageUriFromSize(LARGE_1600_ON_LONGEST_SIDE);
-  Uri get large2048OnLongestSide => _buildImageUriFromSize(LARGE_2048_ON_LONGEST_SIDE);
+  Uri get small240OnLongestSide =>
+      _buildImageUriFromSize(SMALL_240_ON_LONGEST_SIDE);
+  Uri get small320OnLongestSide =>
+      _buildImageUriFromSize(SMALL_320_ON_LONGEST_SIDE);
+  Uri get medium500OnLongestSide =>
+      _buildImageUriFromSize(MEDIUM_500_ON_LONGEST_SIDE);
+  Uri get medium640OnLongestSide =>
+      _buildImageUriFromSize(MEDIUM_640_ON_LONGEST_SIDE);
+  Uri get medium800OnLongestSide =>
+      _buildImageUriFromSize(MEDIUM_800_ON_LONGEST_SIDE);
+  Uri get large1024OnLongestSide =>
+      _buildImageUriFromSize(LARGE_1024_ON_LONGEST_SIDE);
+  Uri get large1600OnLongestSide =>
+      _buildImageUriFromSize(LARGE_1600_ON_LONGEST_SIDE);
+  Uri get large2048OnLongestSide =>
+      _buildImageUriFromSize(LARGE_2048_ON_LONGEST_SIDE);
 
   // see https://www.flickr.com/services/api/misc.urls.html
   // https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}_[mstzb].jpg
   Uri _buildImageUriFromSize(String size) {
-    return new Uri.https("farm$farm.$URL_BASE", "${server}/${id}_${secret}_${size}.jpg");
+    return new Uri.https(
+        "farm$farm.$URL_BASE", "${server}/${id}_${secret}_${size}.jpg");
   }
 
   SearchResultEntry.fromJson(Map json) {
@@ -122,7 +131,8 @@ class SearchResultEntry {
 }
 
 Future<Map> search(String apiKey, String query,
-    {int page: 1, List<int> licenses: license.COMMERCIAL_ALLOWED_LICENSE_IDS,
+    {int page: 1,
+    List<int> licenses: license.COMMERCIAL_ALLOWED_LICENSE_IDS,
     String media: PHOTOS_ONLY}) async {
   var client = new base.Client(apiKey);
   var params = {_QUERY_TEXT_KEY: query};

@@ -56,24 +56,24 @@ void main() {
         total = int.parse(root[search.TOTAL], onError: (_) => 0);
       });
 
-      test(search.PHOTOS, (){
+      test(search.PHOTOS, () {
         expect(photosResult, isNotEmpty);
         expect(photosResult.runtimeType, {}.runtimeType);
       });
 
-      test(search.PAGE, (){
+      test(search.PAGE, () {
         expect(page, PAGE);
       });
 
-      test(search.PAGES, (){
+      test(search.PAGES, () {
         expect(pages, PAGES);
       });
 
-      test(search.PERPAGE, (){
+      test(search.PERPAGE, () {
         expect(perpage, PERPAGE);
       });
 
-      test(search.TOTAL, (){
+      test(search.TOTAL, () {
         expect(total, TOTAL);
       });
 
@@ -99,33 +99,33 @@ void main() {
           title = photo[search.TITLE];
         });
 
-        test("${search.PHOTO} is not empty", (){
+        test("${search.PHOTO} is not empty", () {
           expect(photoList, isNotEmpty);
           expect(photo, isNotNull);
           expect(photo.runtimeType, {}.runtimeType);
         });
 
-        test(search.ID, (){
+        test(search.ID, () {
           expect(id, ID);
         });
 
-        test(search.OWNER, (){
+        test(search.OWNER, () {
           expect(owner, OWNER);
         });
 
-        test(search.SECRET, (){
+        test(search.SECRET, () {
           expect(secret, SECRET);
         });
 
-        test(search.SERVER, (){
+        test(search.SERVER, () {
           expect(server, SERVER);
         });
 
-        test(search.FARM, (){
+        test(search.FARM, () {
           expect(farm, FARM);
         });
 
-        test(search.TITLE, (){
+        test(search.TITLE, () {
           expect(title, TITLE);
         });
       });
@@ -138,19 +138,19 @@ void main() {
       });
 
       group('SearchResult', () {
-        test(search.PAGE, (){
+        test(search.PAGE, () {
           expect(searchResult.page, PAGE);
         });
 
-        test(search.PAGES, (){
+        test(search.PAGES, () {
           expect(searchResult.numPages, PAGES);
         });
 
-        test(search.PERPAGE, (){
+        test(search.PERPAGE, () {
           expect(searchResult.numPerPage, PERPAGE);
         });
 
-        test(search.TOTAL, (){
+        test(search.TOTAL, () {
           expect(searchResult.total, TOTAL);
         });
 
@@ -162,32 +162,32 @@ void main() {
             entry = searchResultEntries.first;
           });
 
-          test('is not empty', (){
+          test('is not empty', () {
             expect(searchResultEntries, isNotEmpty);
             expect(entry, isNotNull);
           });
 
-          test(search.ID, (){
+          test(search.ID, () {
             expect(entry.id, ID);
           });
 
-          test(search.OWNER, (){
+          test(search.OWNER, () {
             expect(entry.owner, OWNER);
           });
 
-          test(search.SECRET, (){
+          test(search.SECRET, () {
             expect(entry.secret, SECRET);
           });
 
-          test(search.SERVER, (){
+          test(search.SERVER, () {
             expect(entry.server, SERVER);
           });
 
-          test(search.FARM, (){
+          test(search.FARM, () {
             expect(entry.farm, FARM);
           });
 
-          test(search.TITLE, (){
+          test(search.TITLE, () {
             expect(entry.title, TITLE);
           });
         });
@@ -200,33 +200,34 @@ void main() {
           searchResultJson = searchResult.toJson();
         });
 
-        group('SearchResult object', (){
+        group('SearchResult object', () {
           int page;
           int pages;
           int perpage;
           int total;
 
           setUpAll(() {
-            searchResultFromJson = new search.SearchResult.fromJson(searchResultJson);
+            searchResultFromJson =
+                new search.SearchResult.fromJson(searchResultJson);
             page = searchResultFromJson.page;
             pages = searchResultFromJson.numPages;
             perpage = searchResultFromJson.numPerPage;
             total = searchResultFromJson.total;
           });
 
-          test(search.PAGE, (){
+          test(search.PAGE, () {
             expect(page, PAGE);
           });
 
-          test(search.PAGES, (){
+          test(search.PAGES, () {
             expect(1, PAGES);
           });
 
-          test(search.PERPAGE, (){
+          test(search.PERPAGE, () {
             expect(perpage, PERPAGE);
           });
 
-          test(search.TOTAL, (){
+          test(search.TOTAL, () {
             expect(total, TOTAL);
           });
         });
@@ -248,7 +249,7 @@ void main() {
             title = entry.title;
           });
 
-          test('', (){
+          test('', () {
             expect(id, ID);
             expect(owner, OWNER);
             expect(secret, SECRET);
@@ -270,7 +271,7 @@ void main() {
 
       group('parsing', () {
         group('SearchResult', () {
-          test(search.PAGE, (){
+          test(search.PAGE, () {
             expect(searchResult.page, 1);
           });
 
@@ -294,32 +295,32 @@ void main() {
               entry = searchResultList.first;
             });
 
-            test('is not empty', (){
+            test('is not empty', () {
               expect(searchResultList, isNotEmpty);
               expect(entry, isNotNull);
             });
 
-            test(search.ID, (){
+            test(search.ID, () {
               expect(entry.id.length, isNonZero);
             });
 
-            test(search.OWNER, (){
+            test(search.OWNER, () {
               expect(entry.owner.length, isNonZero);
             });
 
-            test(search.SECRET, (){
+            test(search.SECRET, () {
               expect(entry.secret.length, isNonZero);
             });
 
-            test(search.SERVER, (){
+            test(search.SERVER, () {
               expect(entry.server.length, isNonZero);
             });
 
-            test(search.FARM, (){
+            test(search.FARM, () {
               expect(entry.farm, isNonZero);
             });
 
-            test(search.TITLE, (){
+            test(search.TITLE, () {
               expect(entry.title.length, isNonZero);
             });
           });
@@ -333,13 +334,12 @@ void main() {
         var result = await search.search(apiKey, SEARCH_TERM, page: 2);
         searchResult = new search.SearchResult.fromJson(result);
       });
-      test('page is 2', (){
+      test('page is 2', () {
         expect(searchResult.page, 2);
       });
     });
 
     group('image urls', () {
-
       List<int> imageUrlStatuses;
 
       setUpAll(() async {
@@ -354,18 +354,14 @@ void main() {
 
         urls.forEach((u) => print(u));
 
-        var urlResponses = await Future.wait(
-          urls.map((url) => http.get(url))
-        );
+        var urlResponses = await Future.wait(urls.map((url) => http.get(url)));
 
-        imageUrlStatuses = urlResponses.map((response) => response.statusCode).toList();
+        imageUrlStatuses =
+            urlResponses.map((response) => response.statusCode).toList();
       });
 
-      test('load with status 200', (){
-        expect(
-          imageUrlStatuses.every((status) => status == STATUS_OK),
-          isTrue
-        );
+      test('load with status 200', () {
+        expect(imageUrlStatuses.every((status) => status == STATUS_OK), isTrue);
       });
     });
   });

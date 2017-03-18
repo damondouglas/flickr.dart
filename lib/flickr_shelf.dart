@@ -19,10 +19,9 @@ class Flickr {
       var q = params[Q_KEY];
       var p = int.parse(params[PAGE_KEY], onError: (_) => 1);
       return _search(apiKey, q, p);
-    }
-    else return new shelf.Response.forbidden('$url is not valid.');
+    } else
+      return new shelf.Response.forbidden('$url is not valid.');
   }
-
 }
 
 bool _validate(Uri url) {
