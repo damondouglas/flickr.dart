@@ -220,7 +220,7 @@ void main() {
           });
 
           test(search.PAGES, () {
-            expect(1, PAGES);
+            expect(pages, PAGES);
           });
 
           test(search.PERPAGE, () {
