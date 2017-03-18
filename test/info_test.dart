@@ -9,7 +9,7 @@ String PHOTO_ID = '27940317290';
 String SECRET = '9842ee4acd';
 String SERVER = '8688';
 int FARM = 9;
-String LICENSE = '4';
+int LICENSE = 4;
 String ORIGINAL_SECRET = '4efa0b4164';
 String ORIGINAL_FORMAT = 'jpg';
 
@@ -55,7 +55,7 @@ main() {
         });
 
         test(info.LICENSE_ID_KEY, (){
-          expect(result[info.LICENSE_ID_KEY], LICENSE);
+          expect(result[info.LICENSE_ID_KEY], LICENSE.toString());
         });
 
         group(info.OWNER_KEY, () {
@@ -84,6 +84,55 @@ main() {
           var response = await http.get(infoObj.url);
           urlStatusCode = response.statusCode;
         });
+
+        group('toJson() yields parseable', (){
+          String id;
+          String secret;
+          String server;
+          int farm;
+          int license;
+          String originalSecret;
+          String originalFormat;
+          String ownerId;
+          String userName;
+          String realName;
+
+          setUpAll(() {
+            var toJsonResult = infoObj.toJson();
+            var infoObjFromToJson = new info.Info.fromJson(toJsonResult);
+
+            id = infoObjFromToJson.id;
+            secret = infoObjFromToJson.secret;
+            server = infoObjFromToJson.server;
+            farm = infoObjFromToJson.farm;
+            originalSecret = infoObjFromToJson.originalSecret;
+            originalFormat = infoObjFromToJson.originalFormat;
+            license = infoObjFromToJson.licenseId;
+
+            var ownerFromToJson = infoObjFromToJson.owner;
+
+            ownerId = ownerFromToJson.id;
+            userName = ownerFromToJson.userName;
+            realName = ownerFromToJson.realName;
+          });
+
+          test('Info object', (){
+            expect(id, PHOTO_ID);
+            expect(secret, SECRET);
+            expect(server, SERVER);
+            expect(farm, FARM);
+            expect(license, LICENSE);
+            expect(originalSecret, ORIGINAL_SECRET);
+            expect(originalFormat, ORIGINAL_FORMAT);
+          });
+
+          test('Owner object', (){
+            expect(ownerId, OWNER_ID);
+            expect(userName, USER_NAME);
+            expect(realName, REAL_NAME);
+          });
+        });
+
         test(info.ID_KEY, (){
           expect(infoObj.id, PHOTO_ID);
         });
@@ -98,6 +147,10 @@ main() {
 
         test(info.FARM_KEY, (){
           expect(infoObj.farm, FARM);
+        });
+
+        test(info.LICENSE_ID_KEY, (){
+          expect(infoObj.licenseId, LICENSE);
         });
 
         test(info.ORIGINAL_SECRET_KEY, (){

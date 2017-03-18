@@ -52,8 +52,8 @@ class Info {
       FARM_KEY: farm,
       ORIGINAL_SECRET_KEY: originalSecret,
       ORIGINAL_FORMAT_KEY: originalFormat,
-      LICENSE_ID_KEY: licenseId,
-      OWNER_ID_KEY: owner.toJson()
+      LICENSE_ID_KEY: licenseId.toString(),
+      OWNER_KEY: owner.toJson()
     }
   };
 
