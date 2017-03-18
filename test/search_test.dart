@@ -4,10 +4,12 @@ import 'common.dart';
 import 'package:flickr/src/search.dart' as search;
 import 'package:flickr/src/base.dart' as base;
 import 'package:test/test.dart';
+import 'package:http/http.dart' as http;
 
 String PATH_DELIMITER = '.';
 String USER_ID = '142142221@N02';
 String USER_ID_KEY = 'user_id';
+final STATUS_OK = 200;
 
 final PAGE = 1;
 final PAGES = 1;
@@ -267,6 +269,37 @@ void main() {
       });
       test('page is 2', (){
         expect(searchResult.page, 2);
+      });
+    });
+
+    group('image urls', () {
+
+      List<int> imageUrlStatuses;
+
+      setUpAll(() async {
+        var searchResult = new search.SearchResult.fromJson(result);
+        var entry = searchResult.entries.first;
+
+        var urls = [
+          entry.thumbnailUri,
+          entry.smallSquareUri,
+          entry.largeSquareUri
+        ];
+
+        urls.forEach((u) => print(u));
+
+        var urlResponses = await Future.wait(
+          urls.map((url) => http.get(url))
+        );
+
+        imageUrlStatuses = urlResponses.map((response) => response.statusCode).toList();
+      });
+
+      test('load with status 200', (){
+        expect(
+          imageUrlStatuses.every((status) => status == STATUS_OK),
+          isTrue
+        );
       });
     });
   });
