@@ -8,9 +8,17 @@ import 'flickr.dart' as flickr;
 final PAGE_KEY = 'p';
 final Q_KEY = 'q';
 
+final usage = {
+  'search': '/search?q=<search phrase>&p=<page>'
+};
+
 class Flickr {
   String apiKey;
   Flickr(this.apiKey);
+
+  Map<String, shelf.Handler> handlers = {
+    'search': search
+  };
 
   Future<shelf.Response> search(shelf.Request request) async {
     var url = request.url;
@@ -20,7 +28,7 @@ class Flickr {
       var p = int.parse(params[PAGE_KEY], onError: (_) => 1);
       return _search(apiKey, q, p);
     } else
-      return new shelf.Response.forbidden('$url is not valid.');
+      return new shelf.Response.forbidden("Request does not follow: " + usage['search']);
   }
 }
 
