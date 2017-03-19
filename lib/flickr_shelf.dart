@@ -16,10 +16,6 @@ class Flickr {
   String apiKey;
   Flickr(this.apiKey);
 
-  Map<String, shelf.Handler> handlers = {
-    'search': search
-  };
-
   Future<shelf.Response> search(shelf.Request request) async {
     var url = request.url;
     if (_validate(url)) {
