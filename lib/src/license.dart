@@ -8,14 +8,15 @@ final _PARAMS = {};
 final _ID = 'id';
 final _NAME = 'name';
 final _URL = 'url';
-const COMMERCIAL_ALLOWED_LICENSE_IDS = const [4, 7];
+const COMMERCIAL_ALLOWED_LICENSE_IDS = const ['4', '7'];
 
 class License {
-  int id;
+  String id;
   String name;
   String url;
   License.from(Map data) {
-    id = int.parse(data[_ID], onError: (input) => -1);
+    // id = int.parse(data[_ID], onError: (input) => -1);
+    id = data[_ID];
     name = data[_NAME];
     url = data[_URL];
   }

@@ -4,7 +4,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:html';
 import 'package:http/browser_client.dart' as http;
-import 'package:flickr/flickr.dart' as flickr show License, SearchResult, SearchResultEntry;
+import 'package:flickr/flickr.dart' as flickr
+    show License, SearchResult, SearchResultEntry;
 
 final PAGE_KEY = 'p';
 final Q_KEY = 'q';
@@ -15,17 +16,9 @@ class FlickrApi {
 
   FlickrApi(this.rootUrl);
 
-  SearchResourceApi get search => new SearchResourceApi(rootUrl, servicePath, 'search');
-}
-
-class SearchResourceApi extends ResourceApi {
-  SearchResourceApi(String rootUrl, String servicePath, String methodPath) : super(rootUrl, servicePath, methodPath);
-
   Future<flickr.SearchResult> search(String q, int p) async {
-    var url = buildUriFromParameters({
-      PAGE_KEY: p.toString(),
-      Q_KEY: q
-    });
+    var url =
+        _buildUriFromParameters('search', {PAGE_KEY: p.toString(), Q_KEY: q});
 
     var client = new http.BrowserClient();
     var response = await client.get(url);
@@ -33,13 +26,21 @@ class SearchResourceApi extends ResourceApi {
     var result = JSON.decode(data);
     return new flickr.SearchResult.fromJson(result);
   }
-}
 
-class ResourceApi {
-  String rootUrl;
-  String servicePath;
-  String methodPath;
-  ResourceApi(this.rootUrl, this.servicePath, this.methodPath);
+  Future<List<flickr.License>> licenses() async {
+    var url = _buildUriFromParameters('license', {});
 
-  Uri buildUriFromParameters(Map parameters) => new Uri.https(rootUrl, "$servicePath/$methodPath", parameters);
+    var client = new http.BrowserClient();
+    var response = await client.get(url);
+    var data = response.body;
+    return JSON
+        .decode(data)
+        .map((licenseData) => new flickr.License.from(licenseData))
+        .toList();
+  }
+
+  Uri _buildUriFromParameters(String methodPath, Map parameters) =>
+      parameters.isNotEmpty
+          ? new Uri.https(rootUrl, "$servicePath/$methodPath", parameters)
+          : new Uri.https(rootUrl, "$servicePath/$methodPath");
 }
