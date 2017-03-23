@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="generator" content="made with love by dartdoc 0.9.8+1">
+  <meta name="description" content="flickr API docs, for the Dart programming language.">
+  <title>flickr - Dart API docs</title>
+
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Source+Code+Pro|Roboto:500,400italic,300,400' type='text/css'>
+  <link rel="stylesheet" href="static-assets/prettify.css">
+  <link rel="stylesheet" href="static-assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="static-assets/styles.css">
+  <link rel="icon" href="static-assets/favicon.png">
+
+  <!-- Do not remove placeholder -->
+  <!-- Header Placeholder -->
+</head>
+
+<body>
+
+<div id="overlay-under-drawer"></div>
+
+<header class="container-fluid" id="title">
+  <nav class="navbar navbar-fixed-top">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 contents">
+          <ol class="breadcrumbs gt-separated hidden-xs">
+            <li class="self-crumb">flickr</li>
+          </ol>
+          <div class="self-name">flickr</div>
+          <form class="search navbar-right" role="search">
+            <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+          </form>
+        </div> <!-- /col -->
+      </div> <!-- /row -->
+    </div> <!-- /container -->
+  </nav>
+
+  <div class="container masthead">
+    <div class="row">
+      <div class="col-sm-12 contents">
+        <ol class="breadcrumbs gt-separated visible-xs">
+        </ol>
+        <div class="title-description">
+          <h1 class="title">
+            <span class="kind">package</span> flickr
+          </h1>
+        </div>
+        <ul class="subnav">
+          <li><a href="index.html#libraries">Libraries</a></li>
+        </ul>
+      </div> <!-- /col -->
+    </div> <!-- /row -->
+  </div> <!-- /container -->
+
+</header>
+
+<div class="container body">
+  <div class="row">
+
+  <div class="col-xs-6 col-sm-3 col-md-2 sidebar sidebar-offcanvas-left">
+    <h5>flickr</h5>
+
+
+    <ol>
+      <li class="section-title"><a href="index.html#libraries">Libraries</a></li>
+      <li><a href="flickr/flickr-library.html">flickr</a></li>
+      <li><a href="flickr.client/flickr.client-library.html">flickr.client</a></li>
+      <li><a href="flickr_shelf/flickr_shelf-library.html">flickr_shelf</a></li>
+    </ol>
+  </div>
+
+  <div class="col-xs-12 col-sm-9 col-md-8 main-content">
+      <section class="desc markdown">
+        <h1>About</h1>
+<p><a href="https://www.dartlang.org">Dartlang</a> wrapper for <a href="https://www.flickr.com/services/api/">flickr API</a> calls.</p>
+<h1>Install</h1>
+<p>In your <code>pubspec.yaml</code>:</p>
+<pre class="language-yaml prettyprint"><code class="language-yaml">dependencies:
+  flickr:
+    git: git@github.com:damondouglas/flickr.dart.git
+</code></pre>
+<h1>Documentation</h1>
+<p>https://damondouglas.github.io/flickr.dart/</p>
+<h1>Testing</h1>
+<p>For tests to pass, set <code>FLICKR_API_KEY</code> obtained from <a href="https://www.flickr.com/services/apps/create/apply/">request api key</a> in your system variables:</p>
+<p><code>$ export FLICKR_API_KEY="..."</code></p>
+<p>Then run:</p>
+<p><code>$ pub run test</code></p>
+<h1>Server</h1>
+<pre class="language-dart prettyprint"><code class="language-dart">import 'package:shelf/shelf.dart' as shelf;
+import 'package:shelf/shelf_io.dart' as io;
+import 'package:flickr/flickr_shelf.dart' as flickr;
+
+main() {
+  var port = 9999;
+  var apiKey = Platform.environment['FLICKR_API_KEY'];
+  var f = new flickr.Flickr(apiKey);
+  var handler = const shelf.Pipeline()
+      .addMiddleware(shelf.logRequests())
+      .addHandler(f.handler);
+
+  var server = await io.serve(handler, '0.0.0.0', port);
+}
+</code></pre>
+<h1>Client</h1>
+<pre class="language-dart prettyprint"><code class="language-dart">import 'package:flickr/flickr_client.dart' as flickr;
+
+main() async {
+  var rootUrl = 'host url without http or https'; // example: morning-true-92723.herokuapp.com
+  var api = new flickr.FlickrApi(rootUrl);
+
+  var result = api.search('cats', 1);
+  var photos = result.entries;
+  var photo = photos.first;
+  var smallPhotoUri = photo.smallSquareUri;
+}
+</code></pre>
+      </section>
+      
+
+      <section class="summary" id="libraries">
+        <h2>Libraries</h2>
+        <dl>
+            <dt id="flickr">
+              <span class="name"><a href="flickr/flickr-library.html">flickr</a></span>
+            </dt>
+            <dd>
+              <p></p>
+            </dd>
+            <dt id="flickr.client">
+              <span class="name"><a href="flickr.client/flickr.client-library.html">flickr.client</a></span>
+            </dt>
+            <dd>
+              <p></p>
+            </dd>
+            <dt id="flickr_shelf">
+              <span class="name"><a href="flickr_shelf/flickr_shelf-library.html">flickr_shelf</a></span>
+            </dt>
+            <dd>
+              <p></p>
+            </dd>
+        </dl>
+      </section>
+
+  </div> <!-- /.main-content -->
+
+  <div class="col-xs-6 col-sm-6 col-md-2 sidebar sidebar-offcanvas-right">
+
+  </div><!--/.sidebar-offcanvas-right-->
+
+</div> <!-- row -->
+</div> <!-- container -->
+
+<footer>
+  <div class="container-fluid">
+    <div class="container">
+      <p class="text-center">
+        <span class="no-break">
+          flickr 0.0.1
+        </span>
+        &bull;
+        <span class="no-break">
+          <a href="https://www.dartlang.org">
+            <img src="static-assets/favicon.png" alt="Dart" title="Dart" width="16" height="16">
+          </a>
+        </span>
+        &bull;
+        <span class="copyright no-break">
+          <a href="http://creativecommons.org/licenses/by-sa/4.0/">cc license</a>
+        </span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="static-assets/typeahead.bundle.min.js"></script>
+<script src="static-assets/prettify.js"></script>
+<script src="static-assets/URI.js"></script>
+<script src="static-assets/script.js"></script>
+<!-- Do not remove placeholder -->
+<!-- Footer Placeholder -->
+
+</body>
+
+</html>
