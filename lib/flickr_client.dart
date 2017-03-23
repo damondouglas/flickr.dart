@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'dart:html';
 import 'package:http/browser_client.dart' as http;
 import 'package:flickr/flickr.dart' as flickr
-    show License, SearchResult, SearchResultEntry;
+    show License, SearchResult, SearchResultEntry, Info;
 
 final PAGE_KEY = 'p';
 final Q_KEY = 'q';
@@ -37,6 +37,17 @@ class FlickrApi {
         .decode(data)
         .map((licenseData) => new flickr.License.from(licenseData))
         .toList();
+  }
+
+  Future<flickr.Info> info(String photoId) async {
+    var url = _buildUriFromParameters('photo/$photoId', {});
+
+    var client = new http.BrowserClient();
+    var response = await client.get(url);
+    var data = response.body;
+    var result = JSON.decode(data);
+    var photo = new flickr.Info.fromJson(result);
+    return photo;
   }
 
   Uri _buildUriFromParameters(String methodPath, Map parameters) =>

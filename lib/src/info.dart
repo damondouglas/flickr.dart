@@ -79,7 +79,7 @@ class Owner {
   Uri get url => new Uri.https(_OWNER_URL_BASE, 'people/$id');
 }
 
-Future<Map> get(String apiKey, String photoId) {
+Future<Map> getInfo(String apiKey, String photoId) {
   var client = new base.Client(apiKey);
   return client.get(_METHOD, {PHOTO_ID_KEY: photoId});
 }

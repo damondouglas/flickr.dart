@@ -9,12 +9,15 @@ import 'package:test/test.dart';
 import 'package:flickr/flickr_client.dart' as flickr;
 import 'package:flickr/flickr.dart'
     show
+        Info,
+        Owner,
         License,
         SearchResult,
         SearchResultEntry,
         COMMERCIAL_ALLOWED_LICENSE_IDS;
 
 final ROOT_URL_KEY_FROM_CONFIG = 'FLICKR_SERVER';
+final PHOTO_ID = '27940317290';
 
 void main() {
   flickr.FlickrApi api;
@@ -91,6 +94,33 @@ void main() {
                 'No known copyright restrictions'
               ].contains(l.name)),
           isTrue);
+    });
+  });
+
+  group('info', () {
+    Info info;
+    Owner owner;
+    setUpAll(() async {
+      info = await api.info(PHOTO_ID);
+      owner = info.owner;
+    });
+
+    test('id', () {
+      expect(info.id, '27940317290');
+    });
+
+    test('license', () {
+      expect(info.licenseId, 4);
+    });
+
+    test('originalsecret', () {
+      expect(info.originalSecret, "4efa0b4164");
+    });
+
+    group('owner', () {
+      test('id', () {
+        expect(owner.id, '142142221@N02');
+      });
     });
   });
 }

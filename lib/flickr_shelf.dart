@@ -17,6 +17,7 @@ class Flickr {
         var router = route.router();
         router
           ..get('/flickr/search', _search)
+          ..get('/flickr/photo/{id}', _info)
           ..get('/flickr/license', _license);
 
         return router.handler;
@@ -34,6 +35,13 @@ class Flickr {
   Future<shelf.Response> _license(shelf.Request request) async {
     var licenses = await flickr.getAllLicenses(apiKey);
     var json = licenses.map((license) => license.toJson()).toList();
+    var data = JSON.encode(json);
+    return new shelf.Response.ok(data);
+  }
+
+  Future<shelf.Response> _info(shelf.Request request) async {
+    var id = route.getPathParameter(request, 'id');
+    var json = await flickr.getInfo(apiKey, id);
     var data = JSON.encode(json);
     return new shelf.Response.ok(data);
   }

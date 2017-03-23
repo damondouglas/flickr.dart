@@ -24,7 +24,7 @@ main() {
     Map result;
     setUpAll(() async {
       var apiKey = common.getApiKey();
-      originalResult = await info.get(apiKey, PHOTO_ID);
+      originalResult = await info.getInfo(apiKey, PHOTO_ID);
       result = originalResult[info.PHOTO_KEY];
     });
 

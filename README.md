@@ -27,6 +27,41 @@ Then run:
 
 `$ pub run test`
 
+# Server
+
+```dart
+import 'package:shelf/shelf.dart' as shelf;
+import 'package:shelf/shelf_io.dart' as io;
+import 'package:flickr/flickr_shelf.dart' as flickr;
+
+main() {
+  var port = 9999;
+  var apiKey = Platform.environment['FLICKR_API_KEY'];
+  var f = new flickr.Flickr(apiKey);
+  var handler = const shelf.Pipeline()
+      .addMiddleware(shelf.logRequests())
+      .addHandler(f.handler);
+
+  var server = await io.serve(handler, '0.0.0.0', port);
+}
+```
+
+# Client
+
+```dart
+import 'package:flickr/flickr_client.dart' as flickr;
+
+main() async {
+  var rootUrl = 'host url without http or https'; // example: morning-true-92723.herokuapp.com
+  var api = new flickr.FlickrApi(rootUrl);
+
+  var result = api.search('cats', 1);
+  var photos = result.entries;
+  var photo = photos.first;
+  var smallPhotoUri = photo.smallSquareUri;
+}
+```
+
 # License
 
 MIT License
