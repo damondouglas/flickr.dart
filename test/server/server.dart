@@ -11,7 +11,7 @@ main() async {
   var handler = const shelf.Pipeline()
       .addMiddleware(shelf_cors.createCorsHeadersMiddleware())
       .addMiddleware(shelf.logRequests())
-      .addHandler(f.search);
+      .addHandler(f.handler);
 
   var server = await io.serve(handler, '0.0.0.0', port);
 
