@@ -13,14 +13,16 @@ final Q_KEY = 'q';
 class FlickrApi {
   String rootUrl;
   String get servicePath => 'flickr';
+  http.BrowserClient _client;
 
-  FlickrApi(this.rootUrl);
+  http.BrowserClient get client => _client != null ? _client : new http.BrowserClient();
+
+  FlickrApi(this.rootUrl, [http.BrowserClient this._client]);
 
   Future<flickr.SearchResult> search(String q, int p) async {
     var url =
         _buildUriFromParameters('search', {PAGE_KEY: p.toString(), Q_KEY: q});
 
-    var client = new http.BrowserClient();
     var response = await client.get(url);
     var data = response.body;
     var result = JSON.decode(data);
@@ -30,7 +32,6 @@ class FlickrApi {
   Future<List<flickr.License>> licenses() async {
     var url = _buildUriFromParameters('license', {});
 
-    var client = new http.BrowserClient();
     var response = await client.get(url);
     var data = response.body;
     return JSON
@@ -42,7 +43,6 @@ class FlickrApi {
   Future<flickr.Info> info(String photoId) async {
     var url = _buildUriFromParameters('photo/$photoId', {});
 
-    var client = new http.BrowserClient();
     var response = await client.get(url);
     var data = response.body;
     var result = JSON.decode(data);

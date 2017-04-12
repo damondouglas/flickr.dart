@@ -28,9 +28,6 @@ class Client {
   Future<Map> get(String method, Map<String, String> params) =>
       new Future(() async {
         params[_METHOD_PARAMS_KEY] = method;
-        // var queryParameters = new Map.from(baseParams);
-        // queryParameters['method'] = method;
-        // params.forEach((k, v) => queryParameters[k] = v);
         var uri = buildUriFromParams(params);
         var response = await http.get(uri);
         return JSON.decode(response.body);
