@@ -13,17 +13,17 @@ final Q_KEY = 'q';
 class FlickrApi {
   String rootUrl;
   String get servicePath => 'flickr';
-  http.BrowserClient _client;
+  Map _headers;
+  Map get headers => _headers != null ? _headers : {};
 
-  http.BrowserClient get client => _client != null ? _client : new http.BrowserClient();
-
-  FlickrApi(this.rootUrl, [http.BrowserClient this._client]);
+  FlickrApi(this.rootUrl, [this._headers]);
 
   Future<flickr.SearchResult> search(String q, int p) async {
     var url =
         _buildUriFromParameters('search', {PAGE_KEY: p.toString(), Q_KEY: q});
 
-    var response = await client.get(url);
+    var client = new http.BrowserClient();
+    var response = await client.get(url, headers: headers);
     var data = response.body;
     var result = JSON.decode(data);
     return new flickr.SearchResult.fromJson(result);
@@ -32,7 +32,8 @@ class FlickrApi {
   Future<List<flickr.License>> licenses() async {
     var url = _buildUriFromParameters('license', {});
 
-    var response = await client.get(url);
+    var client = new http.BrowserClient();
+    var response = await client.get(url, headers: headers);
     var data = response.body;
     return JSON
         .decode(data)
@@ -43,7 +44,8 @@ class FlickrApi {
   Future<flickr.Info> info(String photoId) async {
     var url = _buildUriFromParameters('photo/$photoId', {});
 
-    var response = await client.get(url);
+    var client = new http.BrowserClient();
+    var response = await client.get(url, headers: headers);
     var data = response.body;
     var result = JSON.decode(data);
     var photo = new flickr.Info.fromJson(result);
